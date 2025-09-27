@@ -4,14 +4,13 @@ from tkinter import *
 from tkinter import filedialog
 from threading import Thread
 
-# ---------------- Global Variables ----------------
 player = pyttsx3.init()
 stop_flag = False
 reading_thread = None
 
-# ---------------- Functions ----------------
+
 def speak_text(text):
-    """Speak a given text using pyttsx3"""
+ 
     global stop_flag
     if text:
         player.say(text)
@@ -20,7 +19,7 @@ def speak_text(text):
             player.stop()
 
 def read_pdf(file_path):
-    """Read PDF page by page"""
+
     global stop_flag
     stop_flag = False
     with open(file_path, "rb") as pdf_file:
@@ -35,7 +34,7 @@ def read_pdf(file_path):
                 speak_text(text)
 
 def start_reading():
-    """Open PDF and start reading in a separate thread"""
+
     global reading_thread
     if reading_thread and reading_thread.is_alive():
         print("Already reading. Stop first.")
@@ -46,12 +45,12 @@ def start_reading():
         reading_thread.start()
 
 def stop_reading():
-    """Stop reading audio"""
+   
     global stop_flag
     stop_flag = True
     player.stop()
 
-# ---------------- GUI ----------------
+
 root = Tk()
 root.title("PDF Audio Reader")
 root.geometry("300x150")
@@ -62,3 +61,4 @@ Button(root, text="Start Reading", command=start_reading, width=25, bg="green", 
 Button(root, text="Stop", command=stop_reading, width=25, bg="red", fg="white").pack(pady=5)
 
 root.mainloop()
+
